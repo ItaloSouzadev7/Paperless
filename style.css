@@ -1022,43 +1022,7 @@ select.form-control {
   border-bottom: none;
 }
 
-/* Slide 6: Status Banner */
-.status-banner {
-  margin-bottom: var(--space-32);
-}
-
-.automation-examples {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-16);
-  text-align: left;
-  max-width: 600px;
-  margin: 0 auto var(--space-24) auto;
-}
-
-.example-item {
-  display: flex;
-  align-items: center;
-  gap: var(--space-16);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-base);
-  padding: var(--space-16);
-  font-size: var(--font-size-base);
-  box-shadow: var(--shadow-sm);
-}
-
-.validation-note {
-  background: var(--color-bg-2);
-  border: 1px solid var(--color-warning);
-  border-radius: var(--radius-base);
-  padding: var(--space-16);
-  font-size: var(--font-size-base);
-  color: var(--color-text);
-  margin: 0;
-}
-
-/* Slide 7: Science Stats */
+/* Slide 6: Science Stats */
 .science-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -1087,7 +1051,7 @@ select.form-control {
   margin: 0;
 }
 
-/* Slide 8: Ergonomics */
+/* Slide 7: Ergonomics */
 .ergonomics-content {
   max-width: 800px;
   margin: 0 auto;
@@ -1133,7 +1097,7 @@ select.form-control {
   box-shadow: var(--shadow-sm);
 }
 
-/* Slide 9: Timeline */
+/* Slide 8: Timeline */
 .timeline {
   display: flex;
   flex-direction: column;
@@ -1183,7 +1147,7 @@ select.form-control {
   margin: 0;
 }
 
-/* Slide 10: Care Items */
+/* Slide 9: Care Items */
 .care-items {
   display: flex;
   flex-direction: column;
@@ -1204,7 +1168,7 @@ select.form-control {
   box-shadow: var(--shadow-sm);
 }
 
-/* Slide 11: Cases Grid */
+/* Slide 10: Cases Grid */
 .cases-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1240,7 +1204,7 @@ select.form-control {
   line-height: 1.6;
 }
 
-/* Slide 12: ROI Grid */
+/* Slide 11: ROI Grid */
 .roi-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1283,7 +1247,7 @@ select.form-control {
   margin: 0;
 }
 
-/* Slide 13: Philosophy */
+/* Slide 12: Philosophy */
 .philosophy-content {
   max-width: 800px;
   margin: 0 auto;
@@ -1325,7 +1289,7 @@ select.form-control {
   box-shadow: var(--shadow-sm);
 }
 
-/* Slide 14: Next Steps */
+/* Slide 13: Next Steps */
 .next-steps {
   display: flex;
   flex-direction: column;

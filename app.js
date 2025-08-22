@@ -1,7 +1,7 @@
 class PresentationController {
     constructor() {
         this.currentSlide = 1;
-        this.totalSlides = 14;
+        this.totalSlides = 13;
         this.slides = document.querySelectorAll('.slide');
         this.prevBtn = document.getElementById('prev-btn');
         this.nextBtn = document.getElementById('next-btn');
@@ -12,6 +12,11 @@ class PresentationController {
     }
     
     init() {
+        console.log('Initializing presentation controller...');
+        console.log('Found slides:', this.slides.length);
+        console.log('Prev button:', this.prevBtn);
+        console.log('Next button:', this.nextBtn);
+        
         // Set initial state
         this.updateSlideCounter();
         this.updateNavigationButtons();
@@ -19,14 +24,18 @@ class PresentationController {
         // Add event listeners with proper binding
         if (this.prevBtn) {
             this.prevBtn.addEventListener('click', (e) => {
+                console.log('Previous button clicked');
                 e.preventDefault();
+                e.stopPropagation();
                 this.previousSlide();
             });
         }
         
         if (this.nextBtn) {
             this.nextBtn.addEventListener('click', (e) => {
+                console.log('Next button clicked');
                 e.preventDefault();
+                e.stopPropagation();
                 this.nextSlide();
             });
         }
@@ -42,7 +51,10 @@ class PresentationController {
     }
     
     goToSlide(slideNumber) {
+        console.log('Going to slide:', slideNumber);
+        
         if (slideNumber < 1 || slideNumber > this.totalSlides) {
+            console.log('Invalid slide number:', slideNumber);
             return;
         }
         
@@ -55,6 +67,9 @@ class PresentationController {
         const targetSlide = document.querySelector(`.slide[data-slide="${slideNumber}"]`);
         if (targetSlide) {
             targetSlide.classList.add('active');
+            console.log('Activated slide:', slideNumber);
+        } else {
+            console.error('Target slide not found:', slideNumber);
         }
         
         // Add prev class to slides that should be positioned left
@@ -80,6 +95,8 @@ class PresentationController {
         console.log('Next slide called, current:', this.currentSlide);
         if (this.currentSlide < this.totalSlides) {
             this.goToSlide(this.currentSlide + 1);
+        } else {
+            console.log('Already at last slide');
         }
     }
     
@@ -87,6 +104,8 @@ class PresentationController {
         console.log('Previous slide called, current:', this.currentSlide);
         if (this.currentSlide > 1) {
             this.goToSlide(this.currentSlide - 1);
+        } else {
+            console.log('Already at first slide');
         }
     }
     
@@ -97,12 +116,14 @@ class PresentationController {
         if (this.totalSlidesSpan) {
             this.totalSlidesSpan.textContent = this.totalSlides;
         }
+        console.log('Updated counter to:', this.currentSlide, '/', this.totalSlides);
     }
     
     updateNavigationButtons() {
         // Update previous button
         if (this.prevBtn) {
             this.prevBtn.disabled = this.currentSlide === 1;
+            console.log('Previous button disabled:', this.prevBtn.disabled);
         }
         
         // Update next button
@@ -115,6 +136,7 @@ class PresentationController {
             } else {
                 this.nextBtn.textContent = 'Próximo ▶';
             }
+            console.log('Next button text:', this.nextBtn.textContent, 'disabled:', this.nextBtn.disabled);
         }
     }
     
@@ -230,7 +252,7 @@ class PresentationController {
 
 // Additional utility functions
 class PresentationUtils {
-    static addFullscreenToggle() {
+    static addFullscreenToggle(presentation) {
         // Add fullscreen toggle button
         const fullscreenBtn = document.createElement('button');
         fullscreenBtn.className = 'nav-btn';
@@ -283,7 +305,7 @@ class PresentationUtils {
             background: var(--color-primary);
             transition: width 0.3s ease;
             z-index: 1000;
-            width: ${(1 / 14) * 100}%;
+            width: ${(1 / 13) * 100}%;
         `;
         
         document.body.appendChild(progressBar);
@@ -306,43 +328,45 @@ let presentation;
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded, initializing presentation...');
     
-    // Initialize presentation controller
-    presentation = new PresentationController();
-    
-    // Add additional features
-    PresentationUtils.addFullscreenToggle();
-    const progressBar = PresentationUtils.addSlideProgress();
-    
-    // Override goToSlide to update progress
-    const originalGoToSlide = presentation.goToSlide.bind(presentation);
-    presentation.goToSlide = function(slideNumber) {
-        originalGoToSlide(slideNumber);
-        PresentationUtils.updateProgress(slideNumber, 14);
-    };
-    
-    // Add keyboard shortcuts help
-    const helpBtn = document.createElement('button');
-    helpBtn.innerHTML = '?';
-    helpBtn.className = 'nav-btn';
-    helpBtn.style.cssText = `
-        position: fixed;
-        bottom: 24px;
-        right: 80px;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        font-weight: bold;
-        z-index: 1000;
-        background: var(--color-secondary);
-        color: var(--color-text);
-        border: 1px solid var(--color-border);
-        cursor: pointer;
-        box-shadow: var(--shadow-sm);
-    `;
-    
-    helpBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const helpText = `Atalhos do Teclado:
+    // Small delay to ensure everything is rendered
+    setTimeout(() => {
+        // Initialize presentation controller
+        presentation = new PresentationController();
+        
+        // Add additional features
+        PresentationUtils.addFullscreenToggle(presentation);
+        const progressBar = PresentationUtils.addSlideProgress();
+        
+        // Override goToSlide to update progress
+        const originalGoToSlide = presentation.goToSlide.bind(presentation);
+        presentation.goToSlide = function(slideNumber) {
+            originalGoToSlide(slideNumber);
+            PresentationUtils.updateProgress(slideNumber, 13);
+        };
+        
+        // Add keyboard shortcuts help
+        const helpBtn = document.createElement('button');
+        helpBtn.innerHTML = '?';
+        helpBtn.className = 'nav-btn';
+        helpBtn.style.cssText = `
+            position: fixed;
+            bottom: 24px;
+            right: 80px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-weight: bold;
+            z-index: 1000;
+            background: var(--color-secondary);
+            color: var(--color-text);
+            border: 1px solid var(--color-border);
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        `;
+        
+        helpBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const helpText = `Atalhos do Teclado:
 → ou Espaço: Próximo slide
 ← : Slide anterior  
 Home: Primeiro slide
@@ -352,22 +376,24 @@ Esc: Sair da tela cheia
 Navegação Touch:
 Deslize para esquerda: Próximo
 Deslize para direita: Anterior`;
+            
+            alert(helpText);
+        });
         
-        alert(helpText);
-    });
-    
-    document.body.appendChild(helpBtn);
+        document.body.appendChild(helpBtn);
+        
+        // Make presentation globally available for debugging
+        window.presentation = presentation;
+        
+        console.log('Presentation initialized successfully');
+        
+    }, 100);
     
     // Prevent accidental page refresh
     window.addEventListener('beforeunload', (e) => {
-        if (presentation.currentSlide > 1) {
+        if (presentation && presentation.currentSlide > 1) {
             e.preventDefault();
             e.returnValue = 'Tem certeza que deseja sair da apresentação?';
         }
     });
-    
-    console.log('Presentation initialized successfully');
 });
-
-// Make presentation globally available for debugging
-window.presentation = presentation;
